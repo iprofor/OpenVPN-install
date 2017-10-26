@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Secure OpenVPN server installer for Debian, Ubuntu, CentOS and Arch Linux
 # https://github.com/Angristan/OpenVPN-install
 
@@ -654,3 +656,4 @@ verb 3" >> /etc/openvpn/client-template.txt
 	echo "Your client config is available at $homeDir/$CLIENT.ovpn"
 	echo "If you want to add more clients, you simply need to run this script another time!"
 fi
+exit 0;
