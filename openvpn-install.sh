@@ -275,7 +275,7 @@ else
 	# 	CIPHER="cipher SEED-CBC"
 	# 	;;
 	# esac
-	CIPHER=1;
+	CIPHER="cipher AES-128-CBC";
 
 	# echo ""
 	# echo "Choose what size of Diffie-Hellman key you want to use:"
@@ -296,7 +296,7 @@ else
 	# 	DH_KEY_SIZE="4096"
 	# 	;;
 	# esac
-	DH_KEY_SIZE=2;
+	DH_KEY_SIZE="3072";
 
 	# echo ""
 	# echo "Choose what size of RSA key you want to use:"
@@ -317,7 +317,7 @@ else
 	# 	RSA_KEY_SIZE="4096"
 	# 	;;
 	# esac
-	RSA_KEY_SIZE=1;
+	RSA_KEY_SIZE="3072";
 
 	# echo ""
 	# echo "Finally, tell me a name for the client certificate and configuration"
