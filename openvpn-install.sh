@@ -649,7 +649,7 @@ setenv opt block-outside-dns
 verb 3" >> /etc/openvpn/client-template.txt
 
 	# Generate the custom client.ovpn
-	newclient "$CLIENT_$HOSTNAME"
+	newclient "$CLIENT"
 	echo ""
 	echo "Finished!"
 	echo ""
