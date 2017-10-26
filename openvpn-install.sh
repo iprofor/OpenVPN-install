@@ -196,126 +196,141 @@ if [[ -e /etc/openvpn/server.conf ]]; then
 	done
 else
 	clear
-	echo "Welcome to the secure OpenVPN installer (github.com/Angristan/OpenVPN-install)"
-	echo ""
-	# OpenVPN setup and first user creation
-	echo "I need to ask you a few questions before starting the setup"
-	echo "You can leave the default options and just press enter if you are ok with them"
-	echo ""
-	echo "I need to know the IPv4 address of the network interface you want OpenVPN listening to."
-	echo "If your server is running behind a NAT, (e.g. LowEndSpirit, Scaleway) leave the IP address as it is. (local/private IP)"
-	echo "Otherwise, it should be your public IPv4 address."
-	read -p "IP address: " -e -i $IP IP
-	echo ""
-	echo "What port do you want for OpenVPN?"
-	read -p "Port: " -e -i 1194 PORT
-	echo ""
-	echo "What protocol do you want for OpenVPN?"
-	echo "Unless UDP is blocked, you should not use TCP (unnecessarily slower)"
-	while [[ $PROTOCOL != "UDP" && $PROTOCOL != "TCP" ]]; do
-		read -p "Protocol [UDP/TCP]: " -e -i UDP PROTOCOL
-	done
-	echo ""
-	echo "What DNS do you want to use with the VPN?"
-	echo "   1) Current system resolvers (in /etc/resolv.conf)"
-	echo "   2) FDN (France)"
-	echo "   3) DNS.WATCH (Germany)"
-	echo "   4) OpenDNS (Anycast: worldwide)"
-	echo "   5) Google (Anycast: worldwide)"
-	echo "   6) Yandex Basic (Russia)"
-	echo "   7) AdGuard DNS (Russia)"
-	while [[ $DNS != "1" && $DNS != "2" && $DNS != "3" && $DNS != "4" && $DNS != "5" && $DNS != "6" && $DNS != "7" ]]; do
-		read -p "DNS [1-7]: " -e -i 1 DNS
-	done
-	echo ""
-	echo "See https://github.com/Angristan/OpenVPN-install#encryption to learn more about "
-	echo "the encryption in OpenVPN and the choices I made in this script."
-	echo "Please note that all the choices proposed are secure (to a different degree)"
-	echo "and are still viable to date, unlike some default OpenVPN options"
-	echo ''
-	echo "Choose which cipher you want to use for the data channel:"
-	echo "   1) AES-128-CBC (fastest and sufficiently secure for everyone, recommended)"
-	echo "   2) AES-192-CBC"
-	echo "   3) AES-256-CBC"
-	echo "Alternatives to AES, use them only if you know what you're doing."
-	echo "They are relatively slower but as secure as AES."
-	echo "   4) CAMELLIA-128-CBC"
-	echo "   5) CAMELLIA-192-CBC"
-	echo "   6) CAMELLIA-256-CBC"
-	echo "   7) SEED-CBC"
-	while [[ $CIPHER != "1" && $CIPHER != "2" && $CIPHER != "3" && $CIPHER != "4" && $CIPHER != "5" && $CIPHER != "6" && $CIPHER != "7" ]]; do
-		read -p "Cipher [1-7]: " -e -i 1 CIPHER
-	done
-	case $CIPHER in
-		1)
-		CIPHER="cipher AES-128-CBC"
-		;;
-		2)
-		CIPHER="cipher AES-192-CBC"
-		;;
-		3)
-		CIPHER="cipher AES-256-CBC"
-		;;
-		4)
-		CIPHER="cipher CAMELLIA-128-CBC"
-		;;
-		5)
-		CIPHER="cipher CAMELLIA-192-CBC"
-		;;
-		6)
-		CIPHER="cipher CAMELLIA-256-CBC"
-		;;
-		7)
-		CIPHER="cipher SEED-CBC"
-		;;
-	esac
-	echo ""
-	echo "Choose what size of Diffie-Hellman key you want to use:"
-	echo "   1) 2048 bits (fastest)"
-	echo "   2) 3072 bits (recommended, best compromise)"
-	echo "   3) 4096 bits (most secure)"
-	while [[ $DH_KEY_SIZE != "1" && $DH_KEY_SIZE != "2" && $DH_KEY_SIZE != "3" ]]; do
-		read -p "DH key size [1-3]: " -e -i 2 DH_KEY_SIZE
-	done
-	case $DH_KEY_SIZE in
-		1)
-		DH_KEY_SIZE="2048"
-		;;
-		2)
-		DH_KEY_SIZE="3072"
-		;;
-		3)
-		DH_KEY_SIZE="4096"
-		;;
-	esac
-	echo ""
-	echo "Choose what size of RSA key you want to use:"
-	echo "   1) 2048 bits (fastest)"
-	echo "   2) 3072 bits (recommended, best compromise)"
-	echo "   3) 4096 bits (most secure)"
-	while [[ $RSA_KEY_SIZE != "1" && $RSA_KEY_SIZE != "2" && $RSA_KEY_SIZE != "3" ]]; do
-		read -p "RSA key size [1-3]: " -e -i 2 RSA_KEY_SIZE
-	done
-	case $RSA_KEY_SIZE in
-		1)
-		RSA_KEY_SIZE="2048"
-		;;
-		2)
-		RSA_KEY_SIZE="3072"
-		;;
-		3)
-		RSA_KEY_SIZE="4096"
-		;;
-	esac
-	echo ""
-	echo "Finally, tell me a name for the client certificate and configuration"
-	while [[ $CLIENT = "" ]]; do
-		echo "Please, use one word only, no special characters"
-		read -p "Client name: " -e -i client CLIENT
-	done
-	echo ""
-	echo "Okay, that was all I needed. We are ready to setup your OpenVPN server now"
-	read -n1 -r -p "Press any key to continue..."
+	# echo "Welcome to the secure OpenVPN installer (github.com/Angristan/OpenVPN-install)"
+	# echo ""
+	# # OpenVPN setup and first user creation
+	# echo "I need to ask you a few questions before starting the setup"
+	# echo "You can leave the default options and just press enter if you are ok with them"
+	# echo ""
+	# echo "I need to know the IPv4 address of the network interface you want OpenVPN listening to."
+	# echo "If your server is running behind a NAT, (e.g. LowEndSpirit, Scaleway) leave the IP address as it is. (local/private IP)"
+	# echo "Otherwise, it should be your public IPv4 address."
+	# read -p "IP address: " -e -i $IP IP
+
+	# echo ""
+	# echo "What port do you want for OpenVPN?"
+	# read -p "Port: " -e -i 1194 PORT
+	# echo ""
+	# echo "What protocol do you want for OpenVPN?"
+	# echo "Unless UDP is blocked, you should not use TCP (unnecessarily slower)"
+	PORT=1194;
+
+	# while [[ $PROTOCOL != "UDP" && $PROTOCOL != "TCP" ]]; do
+	# 	read -p "Protocol [UDP/TCP]: " -e -i UDP PROTOCOL
+	# done
+	PROTOCOL=UDP;
+
+	# echo ""
+	# echo "What DNS do you want to use with the VPN?"
+	# echo "   1) Current system resolvers (in /etc/resolv.conf)"
+	# echo "   2) FDN (France)"
+	# echo "   3) DNS.WATCH (Germany)"
+	# echo "   4) OpenDNS (Anycast: worldwide)"
+	# echo "   5) Google (Anycast: worldwide)"
+	# echo "   6) Yandex Basic (Russia)"
+	# echo "   7) AdGuard DNS (Russia)"
+	# while [[ $DNS != "1" && $DNS != "2" && $DNS != "3" && $DNS != "4" && $DNS != "5" && $DNS != "6" && $DNS != "7" ]]; do
+	# 	read -p "DNS [1-7]: " -e -i 1 DNS
+	# done
+	DNS=1;
+
+	# echo ""
+	# echo "See https://github.com/Angristan/OpenVPN-install#encryption to learn more about "
+	# echo "the encryption in OpenVPN and the choices I made in this script."
+	# echo "Please note that all the choices proposed are secure (to a different degree)"
+	# echo "and are still viable to date, unlike some default OpenVPN options"
+	# echo ''
+	# echo "Choose which cipher you want to use for the data channel:"
+	# echo "   1) AES-128-CBC (fastest and sufficiently secure for everyone, recommended)"
+	# echo "   2) AES-192-CBC"
+	# echo "   3) AES-256-CBC"
+	# echo "Alternatives to AES, use them only if you know what you're doing."
+	# echo "They are relatively slower but as secure as AES."
+	# echo "   4) CAMELLIA-128-CBC"
+	# echo "   5) CAMELLIA-192-CBC"
+	# echo "   6) CAMELLIA-256-CBC"
+	# echo "   7) SEED-CBC"
+	# while [[ $CIPHER != "1" && $CIPHER != "2" && $CIPHER != "3" && $CIPHER != "4" && $CIPHER != "5" && $CIPHER != "6" && $CIPHER != "7" ]]; do
+	# 	read -p "Cipher [1-7]: " -e -i 1 CIPHER
+	# done
+	# case $CIPHER in
+	# 	1)
+	# 	CIPHER="cipher AES-128-CBC"
+	# 	;;
+	# 	2)
+	# 	CIPHER="cipher AES-192-CBC"
+	# 	;;
+	# 	3)
+	# 	CIPHER="cipher AES-256-CBC"
+	# 	;;
+	# 	4)
+	# 	CIPHER="cipher CAMELLIA-128-CBC"
+	# 	;;
+	# 	5)
+	# 	CIPHER="cipher CAMELLIA-192-CBC"
+	# 	;;
+	# 	6)
+	# 	CIPHER="cipher CAMELLIA-256-CBC"
+	# 	;;
+	# 	7)
+	# 	CIPHER="cipher SEED-CBC"
+	# 	;;
+	# esac
+	CIPHER=1;
+
+	# echo ""
+	# echo "Choose what size of Diffie-Hellman key you want to use:"
+	# echo "   1) 2048 bits (fastest)"
+	# echo "   2) 3072 bits (recommended, best compromise)"
+	# echo "   3) 4096 bits (most secure)"
+	# while [[ $DH_KEY_SIZE != "1" && $DH_KEY_SIZE != "2" && $DH_KEY_SIZE != "3" ]]; do
+	# 	read -p "DH key size [1-3]: " -e -i 2 DH_KEY_SIZE
+	# done
+	# case $DH_KEY_SIZE in
+	# 	1)
+	# 	DH_KEY_SIZE="2048"
+	# 	;;
+	# 	2)
+	# 	DH_KEY_SIZE="3072"
+	# 	;;
+	# 	3)
+	# 	DH_KEY_SIZE="4096"
+	# 	;;
+	# esac
+	DH_KEY_SIZE=2;
+
+	# echo ""
+	# echo "Choose what size of RSA key you want to use:"
+	# echo "   1) 2048 bits (fastest)"
+	# echo "   2) 3072 bits (recommended, best compromise)"
+	# echo "   3) 4096 bits (most secure)"
+	# while [[ $RSA_KEY_SIZE != "1" && $RSA_KEY_SIZE != "2" && $RSA_KEY_SIZE != "3" ]]; do
+	# 	read -p "RSA key size [1-3]: " -e -i 2 RSA_KEY_SIZE
+	# done
+	# case $RSA_KEY_SIZE in
+	# 	1)
+	# 	RSA_KEY_SIZE="2048"
+	# 	;;
+	# 	2)
+	# 	RSA_KEY_SIZE="3072"
+	# 	;;
+	# 	3)
+	# 	RSA_KEY_SIZE="4096"
+	# 	;;
+	# esac
+	RSA_KEY_SIZE=1;
+
+	# echo ""
+	# echo "Finally, tell me a name for the client certificate and configuration"
+	# while [[ $CLIENT = "" ]]; do
+	# 	echo "Please, use one word only, no special characters"
+	# 	read -p "Client name: " -e -i client CLIENT
+	# done
+	CLIENT="CRT_$HOSTNAME";
+
+	# echo ""
+	# echo "Okay, that was all I needed. We are ready to setup your OpenVPN server now"
+	# read -n1 -r -p "Press any key to continue..."
 
 	if [[ "$OS" = 'debian' ]]; then
 		apt-get install ca-certificates -y
