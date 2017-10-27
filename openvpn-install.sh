@@ -325,7 +325,7 @@ else
 	# 	echo "Please, use one word only, no special characters"
 	# 	read -p "Client name: " -e -i client CLIENT
 	# done
-	CLIENT="CRT_$HOSTNAME";
+	CLIENT="$HOSTNAME-CRT";
 
 	# echo ""
 	# echo "Okay, that was all I needed. We are ready to setup your OpenVPN server now"
