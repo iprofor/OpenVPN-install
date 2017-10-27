@@ -1,4 +1,3 @@
-# This branch may contain untested features. It is highly advisable not to use it production!!!
 # OpenVPN-install
 Secure OpenVPN installer for Debian, Ubuntu, CentOS and Arch Linux.
 
