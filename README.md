@@ -1,7 +1,17 @@
 # OpenVPN-install
 Secure OpenVPN installer for Debian, Ubuntu, CentOS and Arch Linux.
 
-This script will let you setup your own secure VPN server in just a few minutes.
+##### This script installs automatically the OpenVPN service with the following options:
+1. PROTOCOL=__UDP__
+2. PORT=__UDP__
+3. DNS=__1__ _aka: Current system resolvers_
+4. CIPHER=__"cipher AES-128-CBC"__
+5. DH_KEY_SIZE=__"3072"__
+6. RSA_KEY_SIZE=__"3072"__
+7. CLIENT=__"$HOSTNAME-CRT"__
+
+
+
 
 Here is a preview of the installer :
 
