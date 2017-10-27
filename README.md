@@ -1,3 +1,4 @@
+# This branch has all the original, untouched files from the cloned repository, dated 26.10.17
 # OpenVPN-install
 Secure OpenVPN installer for Debian, Ubuntu, CentOS and Arch Linux.
 
@@ -46,7 +47,7 @@ The only drawback is that you need to use a recent version of OpenVPN, because s
 
 On the client-side, it's less problematic, but if you want to use an OpenVPN server installed with this script with an old client (\<2.3.3), it won't work. However I don't see why you would use an outdated client.
 
-**TL;DR**, this script is relatively secure, and you can just press enter in the setup. 
+**TL;DR**, this script is relatively secure, and you can just press enter in the setup.
 
 ## Compatibility
 
@@ -102,13 +103,13 @@ Any other fast, trustable and neutral servers proposition is welcome.
 
 The main reason why I made this fork is to improve the encryption. Indeed, OpenVPN's default parameters are weak (and that's what [Nyr's script](https://github.com/Nyr/openvpn-install) uses).
 
-I want to justify all my choices regarding the encryption settings I have chosen, to prove that I'm not some random noob as some may think. 😉 
+I want to justify all my choices regarding the encryption settings I have chosen, to prove that I'm not some random noob as some may think. 😉
 
 However I'm far from a crypto expert, so don't hesitate to doubt what I say (I put links to my sources anyway), and to open an issue to correct me.
 
 OpenVPN 2.4 will be a great update on the encryption part, because we'll be able to use elliptic curves, so ECDSA and ECDH (as well for the control channel), and AES GCM. They are faster and more secure. I will, of course, update the script when it will be available.
 
-**Note:** With OpenVPN's default parameters, you have a relatively weak encryption. Nonetheless, your trafic is still encrypted, so unless you're under surveillance, probably no one will try to decrypt it. Yet it's not a reason to use old and weak algorithm when there are much better ones available. 😉 
+**Note:** With OpenVPN's default parameters, you have a relatively weak encryption. Nonetheless, your trafic is still encrypted, so unless you're under surveillance, probably no one will try to decrypt it. Yet it's not a reason to use old and weak algorithm when there are much better ones available. 😉
 
 ### TLS version
 
@@ -138,7 +139,7 @@ It also supports SHA1 and MD5, which are unsafe, and all the SHA2 family. I didn
 
 ### Data channel's cipher
 
-By default, OpenVPN uses `BF-CBC` as the data channel cipher. Blowfish is an old (1993) an weak alogorithm. What's *funny* is that even the official OpenVPN documentation admits it. 
+By default, OpenVPN uses `BF-CBC` as the data channel cipher. Blowfish is an old (1993) an weak alogorithm. What's *funny* is that even the official OpenVPN documentation admits it.
 
 >The default is BF-CBC, an abbreviation for Blowfish in Cipher Block Chaining mode.
 Using BF-CBC is no longer recommended, because of its 64-bit block size. This small block size allows attacks based on collisions, as demonstrated by SWEET32. See https://community.openvpn.net/openvpn/wiki/SWEET32 for details.
@@ -236,7 +237,7 @@ SHA-1 is not safe anymore, so I use SHA-256 which is safe and widely used.
 
 >The primary benefit is that an unauthenticated client cannot cause the same CPU/crypto load against a server as the junk traffic can be dropped much sooner. This can aid in mitigating denial-of-service attempts.
 
->This feature by itself does not improve the TLS auth in any way, although it offers a 2nd line of defense if a future flaw is discovered in a particular TLS cipher-suite or implementation (such as CVE-2014-0160, Heartbleed, where the tls-auth key provided protection against attackers who did not have a copy). However, it offers no protection at all in the event of a complete cryptographic break that can allow decryption of a cipher-suite's traffic. 
+>This feature by itself does not improve the TLS auth in any way, although it offers a 2nd line of defense if a future flaw is discovered in a particular TLS cipher-suite or implementation (such as CVE-2014-0160, Heartbleed, where the tls-auth key provided protection against attackers who did not have a copy). However, it offers no protection at all in the event of a complete cryptographic break that can allow decryption of a cipher-suite's traffic.
 
 [Source](https://openvpn.net/index.php/open-source/documentation/howto.html#security)
 
